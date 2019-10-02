@@ -1,12 +1,5 @@
 "use strict"
 
-let quality = {
-    ID: 5,
-    name: 'product',
-    description: 'some information',
-    price: 100,
-    images: ['img1']
-}
 function abstractProduct(quality) {
     if (this.constructor === abstractProduct) {
         throw new Error("Can't instantiate abstract class!");
@@ -60,8 +53,7 @@ abstractProduct.prototype.GetterSetter = function (getProp, set) {
             else {
                 str = getProp[0].toUpperCase() + getProp.slice(1);
                 str = 'get' + str;
-            }
-            
+            }           
        return (this[str]());
     }
     else if (arguments.length < 3) {
@@ -135,14 +127,6 @@ abstractProduct.prototype.getProductTileHTML = function(){
         return nameTag;  
     }
 
-
-var qualities = {
-    Id: 1,
-    author: 'Andrew',
-    date: new Date,
-    comment: 'My comment'
-}
-
 function Reviews(reviews) {
     this.id = reviews.Id || 1;
     this.author = reviews.author || 2;
@@ -156,31 +140,8 @@ function Reviews(reviews) {
     ]);
 }
 
-var newReviews = new Reviews(qualities);
-var boxForReview = [];
-boxForReview.push(newReviews);
-
-let options = {
-    
-    name: 'Coat',
-    description: 'some information',
-    price: 100,
-    images: ['img1', 'img2', 'img3'],
-    brand: 'Lacoste',
-    color: 'Blue',
-    material: 'Cotton',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    activeSize: 'XS',
-    quantity: '1',
-    date: new Date,
-    reviews: boxForReview,
-    
-}
-
-
 function Clothes2(options) {
     abstractProduct.apply(this, arguments);
-   
     this.brand = options.brand;
     this.color = options.color;
     this.material = options.material;
@@ -239,9 +200,9 @@ function Clothes2(options) {
     this.setDate = function (dateString) {
         this.date = dateString || new Date();
     }
-    this.addReview = function () {
+   this.addReview = function () {
         var test = this.getReviews();
-        test.push(newReviews)
+        test.push(new Reviews())
         return test;
     }
     this.deleteReviews = function (deleted) {
@@ -249,7 +210,6 @@ function Clothes2(options) {
         delReviews.splice(deleted - 1, 1);
     }
     this.getAverageRaiting = function () {
-
         let counter = 0;
         let priceAverage = 0;
         let serviceAverage = 0;
@@ -266,23 +226,11 @@ function Clothes2(options) {
         arr.push(priceAverage / counter, serviceAverage / counter, valueAverage / counter, qualityAverage / counter);
         return arr;
     }
-   // ccccccccccccccc
 }
+
 Clothes2.prototype = Object.create(abstractProduct.prototype);
 Clothes2.prototype.constructor = Clothes2;
 
-let secondProduct = new Clothes2(options);
-let thirdProduct = new Clothes2(options);
-
-let electronicQualities = {
-    id:2,
-    name: 'product',
-    description: 'some information',
-    price: 100,
-    img: ['img1', 'img2', 'img3'],
-    warranty: 10,
-    power: 5
-}
 
 function Electronic(electronicQualities, ) {
 
@@ -304,14 +252,10 @@ function Electronic(electronicQualities, ) {
             this.warranty = duration;
         }
     }
-
 }
 
 Electronic.prototype = Object.create(abstractProduct.prototype);
 Electronic.prototype.constructor = Electronic;
-
-let chainik = new Electronic(electronicQualities)
-
 
 function searchProducts(search, ...arr) {
     let searchedArr = [];
@@ -384,7 +328,7 @@ let validator = {
         } 
     },
     validatePassword: function(password){
-        var validePassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[\d])(?=.*[!_@#\$%\^&])(?=.{4,})/
+        var validePassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[\d])(?=.*[!_@#\$%\^&])?(?=.{5,})/
         if(validePassword.test(password) == true){
             console.log('you paste right');
         }
@@ -455,6 +399,3 @@ $('#inputState2').change(()=>{
    var sortByName = sortProducts('name',backUpProducts,sortByNameValue);
   plp.renderProducts(sortByName);
 })
-
-
- 

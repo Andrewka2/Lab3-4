@@ -1,5 +1,4 @@
 "use strict"
-
 let quality = {
     ID: 5,
     name: 'product',
